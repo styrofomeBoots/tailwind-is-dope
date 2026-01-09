@@ -4,45 +4,88 @@ import { Icon } from "@iconify/vue";
 
 <template>
   <div class="max-w-6xl space-y-8 mx-auto">
-    <section
-      class="relative overflow-hidden rounded-2xl border bg-base-100/80 backdrop-blur shadow-sm"
-    >
-      <div
-        class="pointer-events-none absolute -left-24 -top-24 size-72 rounded-full bg-primary/15 blur-3xl"
-      />
-      <div
-        class="pointer-events-none absolute -right-24 -bottom-24 size-72 rounded-full bg-secondary/15 blur-3xl"
-      />
-      <div
-        class="pointer-events-none absolute left-1/2 top-1/2 size-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/10 blur-3xl"
-      />
-      <div
-        class="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-base-300/60"
-      />
+    <HeroCard>
+      <template #left>
+        <div class="space-y-4">
+          <!-- Header row -->
+          <div class="flex items-start gap-4">
+            <div
+              class="rounded-2xl bg-primary/10 p-3 text-primary ring-1 ring-base-300/60"
+            >
+              <Icon icon="mdi:information-outline" class="size-6" />
+            </div>
 
-      <div class="relative p-6 md:p-8 space-y-4">
-        <div class="flex items-start gap-4">
-          <div
-            class="rounded-2xl bg-base-200/70 p-3 shadow-sm ring-1 ring-base-300/70"
-          >
-            <Icon icon="mdi:information-outline" class="size-6" />
+            <div class="space-y-2">
+              <h2 class="text-3xl font-extrabold tracking-tight md:text-4xl">
+                Who am I?
+              </h2>
+
+              <div
+                class="space-y-3 max-w-prose text-base leading-relaxed text-base-content/80"
+              >
+                <p>
+                  I'm Seth. I bought fireworks in Pennsylvania and brought them
+                  across state lines. They’re hidden in my attic as I count down
+                  the days to my imminent arrest.
+                </p>
+
+                <p>
+                  My dog is built on efficiency, a fifty-pound bag of food lasts
+                  about 400 days. I stopped believing in favorite colors in
+                  January 2021, but it was purple. I never cared about having a
+                  Christmas tree until this year. Now I’m excited. I think
+                  smoking cigarettes looks cool and I would do it if they didn’t
+                  make me sick.
+                </p>
+
+                <p>Enjoy the Rita pics.</p>
+              </div>
+            </div>
           </div>
 
-          <div class="space-y-2">
-            <h2 class="text-2xl font-extrabold tracking-tight md:text-3xl">
-              About
-            </h2>
+          <!-- Badges -->
+          <div class="flex flex-wrap gap-2">
+            <div class="badge badge-primary badge-outline gap-2 py-3">
+              <Icon icon="streamline:fireworks-rocket" class="size-4" />
+              crime
+            </div>
 
-            <p class="text-base text-base-content/70 leading-relaxed">
-              I bought fireworks in Pennsylvania and brought them across state
-              lines. I hid them in my crawlspace as I count down the days to my
-              eminent arrest. My dog is economical size, a fifty pound bag of
-              food lasts 400 days.
-            </p>
+            <div class="badge badge-secondary badge-outline gap-2 py-3">
+              <Icon icon="solar:paw-outline" class="size-4" />
+              efficient canine
+            </div>
+            <div class="badge badge-success badge-outline gap-2 py-3">
+              <Icon icon="mdi:palette-outline" class="size-4" />
+              ex-purple
+            </div>
+            <div class="badge badge-info badge-outline gap-2 py-3">
+              <Icon icon="mdi:pine-tree" class="size-4" />
+              stoked
+            </div>
+            <div class="badge badge-accent badge-outline gap-2 py-3">
+              <Icon icon="ph:cigarette-light" class="size-4" />
+              unfortunate
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </template>
+
+      <template #right>
+        <!-- Bigger, cleaner photo card -->
+        <div
+          class="card border border-base-300 bg-base-100 shadow-sm overflow-hidden transition hover:-translate-y-0.5 hover:shadow-md"
+        >
+          <div class="relative">
+            <img
+              src="/images/rita/seth-and-rita.png"
+              alt="Seth, and Rita"
+              class="h-[20rem] w-full object-cover object-top"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </template>
+    </HeroCard>
 
     <ChromaGrid />
   </div>

@@ -30,184 +30,150 @@ onBeforeUnmount((): void => {
 
 <template>
   <div class="max-w-6xl space-y-8 mx-auto">
-    <!-- HERO -->
-    <section
-      class="relative overflow-hidden rounded-2xl border bg-base-100/80 backdrop-blur shadow-sm"
-    >
-      <!-- soft color blobs -->
-      <div
-        class="pointer-events-none absolute -left-24 -top-24 size-72 rounded-full bg-primary/15 blur-3xl"
-      />
-      <div
-        class="pointer-events-none absolute -right-24 -bottom-24 size-72 rounded-full bg-secondary/15 blur-3xl"
-      />
-      <div
-        class="pointer-events-none absolute left-1/2 top-1/2 size-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/10 blur-3xl"
-      />
-      <div
-        class="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-base-300/60"
-      />
-
-      <div class="relative p-6 md:p-8 space-y-6">
-        <!-- Title row -->
-        <div
-          class="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between"
-        >
-          <div class="space-y-3">
-            <div class="flex items-start gap-4">
-              <div
-                class="rounded-2xl bg-base-200/70 p-3 shadow-sm ring-1 ring-base-300/70"
-              >
-                <Icon icon="mdi:ruler-square-compass" class="size-8" />
-              </div>
-
-              <div class="space-y-1">
-                <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">
-                  rem vs px: where things break
-                </h1>
-                <p class="max-w-2xl text-base text-base-content/70">
-                  This simulates a user increasing their default font size (root
-                  <code>html</code> font-size). Watch how <code>rem</code>-based
-                  sizing stays proportional while <code>px</code>-based sizing
-                  drifts or breaks.
-                </p>
-              </div>
+    <HeroCard>
+      <template #left>
+        <div class="space-y-3">
+          <div class="flex items-start gap-4">
+            <div
+              class="rounded-2xl bg-primary/10 p-3 text-primary ring-1 ring-base-300/60"
+            >
+              <Icon icon="mdi:ruler-square-compass" class="size-6" />
             </div>
 
-            <!-- Mini stats -->
-            <div class="flex flex-wrap gap-2">
-              <div class="badge badge-primary badge-outline gap-2 py-3">
-                <Icon icon="mdi:scale-balance" class="size-4" />
-                Proportions
-              </div>
-              <div class="badge badge-secondary badge-outline gap-2 py-3">
-                <Icon icon="mdi:image-size-select-large" class="size-4" />
-                Layout drift
-              </div>
-              <div class="badge badge-accent badge-outline gap-2 py-3">
-                <Icon icon="mdi:alert-outline" class="size-4" />
-                Clipping
-              </div>
+            <div class="space-y-1">
+              <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">
+                rem vs px: where things break
+              </h1>
+              <p class="max-w-2xl text-base text-base-content/70">
+                This simulates a user increasing their default font size (root
+                <code>html</code> font-size). Watch how <code>rem</code>-based
+                sizing stays proportional while <code>px</code>-based sizing
+                drifts or breaks.
+              </p>
             </div>
           </div>
 
-          <!-- Root font controls -->
-          <div class="w-full lg:w-auto">
-            <div
-              class="card border border-base-300 bg-base-100 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
-            >
-              <div class="card-body gap-3 p-4">
-                <div class="flex items-center justify-between gap-2">
-                  <div class="flex items-center gap-2">
-                    <Icon icon="mdi:format-size" class="size-5 text-primary" />
-                    <div class="text-sm font-semibold">Root font size</div>
-                  </div>
-                  <div class="badge badge-primary badge-outline">
-                    {{ activeFont }}px
-                  </div>
-                </div>
+          <!-- Mini stats -->
+          <div class="flex flex-wrap gap-2">
+            <div class="badge badge-primary badge-outline gap-2 py-3">
+              <Icon icon="mdi:scale-balance" class="size-4" />
+              Proportions
+            </div>
+            <div class="badge badge-secondary badge-outline gap-2 py-3">
+              <Icon icon="mdi:image-size-select-large" class="size-4" />
+              Layout drift
+            </div>
+            <div class="badge badge-accent badge-outline gap-2 py-3">
+              <Icon icon="mdi:alert-outline" class="size-4" />
+              Clipping
+            </div>
+          </div>
+        </div>
+      </template>
 
-                <div class="join w-full">
-                  <button
-                    v-for="px in fontOptions"
-                    :key="px"
-                    class="btn join-item flex-1"
-                    :class="activeFont === px ? 'btn-primary' : 'btn-ghost'"
-                    type="button"
-                    @click="setRootFont(px)"
-                  >
-                    {{ px }}px<span v-if="px === 16"> (default)</span>
-                  </button>
-                </div>
-
-                <div class="text-xs text-base-content/60">
-                  This changes <code>html</code> font-size. Try 24px and scan
-                  the cards.
-                </div>
+      <template #right>
+        <!-- Root font controls -->
+        <div
+          class="card border border-base-300 bg-base-100 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+        >
+          <div class="card-body gap-3 p-4">
+            <div class="flex items-center justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <Icon icon="mdi:format-size" class="size-5 text-primary" />
+                <div class="text-sm font-semibold">Root font size</div>
               </div>
+              <div class="badge badge-primary badge-outline">
+                {{ activeFont }}px
+              </div>
+            </div>
+
+            <div class="join w-full">
+              <button
+                v-for="px in fontOptions"
+                :key="px"
+                class="btn join-item flex-1"
+                :class="activeFont === px ? 'btn-primary' : 'btn-ghost'"
+                type="button"
+                @click="setRootFont(px)"
+              >
+                {{ px }}px<span v-if="px === 16"> (default)</span>
+              </button>
+            </div>
+
+            <div class="text-xs text-base-content/60">
+              This changes <code>html</code> font-size. Try 24px and scan the
+              cards.
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <!-- Default slot content (below the top row) -->
+      <div class="rounded-2xl border border-info/25 bg-info/5 p-4 md:p-5">
+        <div
+          class="flex flex-col gap-3 md:flex-row md:items-start md:justify-between"
+        >
+          <div class="flex items-start gap-3">
+            <div
+              class="rounded-2xl bg-info/15 p-3 text-info ring-1 ring-base-300/60"
+            >
+              <Icon icon="mdi:radar" class="size-6" />
+            </div>
+
+            <div class="space-y-1">
+              <div class="font-semibold">What to look for</div>
+              <p class="text-sm text-base-content/70">
+                These are the subtle “it didn’t break, but it feels wrong”
+                issues.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-2">
+            <div class="badge badge-info badge-outline gap-2 py-3">
+              <Icon icon="mdi:emoticon-confused-outline" class="size-4" />
+              “Feels off”
+            </div>
+            <div class="badge badge-success badge-outline gap-2 py-3">
+              <Icon icon="mdi:check-circle-outline" class="size-4" />
+              Scales clean
+            </div>
+            <div class="badge badge-warning badge-outline gap-2 py-3">
+              <Icon icon="mdi:alert-circle-outline" class="size-4" />
+              Clips/wraps
             </div>
           </div>
         </div>
 
-        <!-- What to look for -->
-        <div class="rounded-2xl border border-info/25 bg-info/5 p-4 md:p-5">
-          <div
-            class="flex flex-col gap-3 md:flex-row md:items-start md:justify-between"
-          >
-            <div class="flex items-start gap-3">
-              <div
-                class="rounded-2xl bg-info/15 p-3 text-info ring-1 ring-base-300/60"
+        <div class="mt-4 grid gap-3 md:grid-cols-2">
+          <ul class="space-y-2 text-sm text-base-content/80">
+            <li class="flex items-start gap-2">
+              <Icon icon="mdi:chevron-right" class="mt-0.5 size-4 text-info" />
+              <span
+                ><b>Icons</b> fixed in px look too small as text grows.</span
               >
-                <Icon icon="mdi:radar" class="size-6" />
-              </div>
+            </li>
+            <li class="flex items-start gap-2">
+              <Icon icon="mdi:chevron-right" class="mt-0.5 size-4 text-info" />
+              <span
+                ><b>Fixed-height rows</b> start clipping or misaligning.</span
+              >
+            </li>
+          </ul>
 
-              <div class="space-y-1">
-                <div class="font-semibold">What to look for</div>
-                <p class="text-sm text-base-content/70">
-                  These are the subtle “it didn’t break, but it feels wrong”
-                  issues.
-                </p>
-              </div>
-            </div>
-
-            <div class="flex flex-wrap gap-2">
-              <div class="badge badge-info badge-outline gap-2 py-3">
-                <Icon icon="mdi:emoticon-confused-outline" class="size-4" />
-                “Feels off”
-              </div>
-              <div class="badge badge-success badge-outline gap-2 py-3">
-                <Icon icon="mdi:check-circle-outline" class="size-4" />
-                Scales clean
-              </div>
-              <div class="badge badge-warning badge-outline gap-2 py-3">
-                <Icon icon="mdi:alert-circle-outline" class="size-4" />
-                Clips/wraps
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-4 grid gap-3 md:grid-cols-2">
-            <ul class="space-y-2 text-sm text-base-content/80">
-              <li class="flex items-start gap-2">
-                <Icon
-                  icon="mdi:chevron-right"
-                  class="mt-0.5 size-4 text-info"
-                />
-                <span
-                  ><b>Icons</b> fixed in px look too small as text grows.</span
-                >
-              </li>
-              <li class="flex items-start gap-2">
-                <Icon
-                  icon="mdi:chevron-right"
-                  class="mt-0.5 size-4 text-info"
-                />
-                <span
-                  ><b>Fixed-height rows</b> start clipping or misaligning.</span
-                >
-              </li>
-            </ul>
-
-            <ul class="space-y-2 text-sm text-base-content/80">
-              <li class="flex items-start gap-2">
-                <Icon
-                  icon="mdi:chevron-right"
-                  class="mt-0.5 size-4 text-info"
-                />
-                <span><b>Chips/buttons</b> stop matching their text.</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <Icon
-                  icon="mdi:chevron-right"
-                  class="mt-0.5 size-4 text-info"
-                />
-                <span><b>Side-by-side comparisons</b> show drift clearly.</span>
-              </li>
-            </ul>
-          </div>
+          <ul class="space-y-2 text-sm text-base-content/80">
+            <li class="flex items-start gap-2">
+              <Icon icon="mdi:chevron-right" class="mt-0.5 size-4 text-info" />
+              <span><b>Chips/buttons</b> stop matching their text.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <Icon icon="mdi:chevron-right" class="mt-0.5 size-4 text-info" />
+              <span><b>Side-by-side comparisons</b> show drift clearly.</span>
+            </li>
+          </ul>
         </div>
       </div>
-    </section>
+    </HeroCard>
 
     <!-- DEMOS (ONE CARD PER ROW) -->
     <div ref="demoGridRef" class="grid grid-cols-1 gap-6">

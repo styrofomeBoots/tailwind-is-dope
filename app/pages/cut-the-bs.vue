@@ -115,167 +115,143 @@ const comparisons = [
 
 <template>
   <div class="mx-auto max-w-6xl space-y-8">
-    <!-- HERO -->
-    <section
-      class="relative overflow-hidden rounded-2xl border bg-base-100/80 shadow-sm backdrop-blur"
-    >
-      <div
-        class="pointer-events-none absolute -left-24 -top-24 size-72 rounded-full bg-primary/15 blur-3xl"
-      />
-      <div
-        class="pointer-events-none absolute -right-24 -bottom-24 size-72 rounded-full bg-secondary/15 blur-3xl"
-      />
-      <div
-        class="pointer-events-none absolute left-1/2 top-1/2 size-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/10 blur-3xl"
-      />
-      <div
-        class="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-base-300/60"
-      />
-
-      <div class="relative space-y-6 p-6 md:p-8">
-        <div
-          class="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between"
-        >
-          <div class="space-y-3">
-            <div class="flex items-start gap-4">
-              <div
-                class="rounded-2xl bg-base-200/70 p-3 shadow-sm ring-1 ring-base-300/70"
-              >
-                <Icon icon="mdi:tailwind" class="size-8" />
-              </div>
-
-              <div class="space-y-1">
-                <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">
-                  Why Tailwind is a better alternative than Bootstrap
-                </h1>
-                <p class="max-w-3xl text-base text-base-content/70">
-                  Bootstrap is great for quick defaults, but it becomes harder
-                  to customize and maintain as your UI evolves. Tailwind keeps
-                  styling flexible, composable, and design-system
-                  friendly—without being tied to a framework’s opinionated
-                  components.
-                </p>
-              </div>
+    <HeroCard>
+      <template #left>
+        <div class="space-y-3">
+          <div class="flex items-start gap-4">
+            <div
+              class="rounded-2xl bg-primary/10 p-3 text-primary ring-1 ring-base-300/60"
+            >
+              <Icon icon="mdi:tailwind" class="size-6" />
             </div>
 
-            <div class="flex flex-wrap gap-2">
-              <div class="badge badge-primary badge-outline gap-2 py-3">
-                <Icon icon="mdi:scale-balance" class="size-4" />
-                Flexibility
-              </div>
-              <div class="badge badge-secondary badge-outline gap-2 py-3">
-                <Icon icon="mdi:toolbox-outline" class="size-4" />
-                Maintainability
-              </div>
-              <div class="badge badge-accent badge-outline gap-2 py-3">
-                <Icon icon="mdi:puzzle-outline" class="size-4" />
-                Integration
-              </div>
-              <div class="badge badge-info badge-outline gap-2 py-3">
-                <Icon icon="mdi:palette-swatch" class="size-4" />
-                Design Systems
-              </div>
+            <div class="space-y-1">
+              <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">
+                Why Tailwind is a better alternative than Bootstrap
+              </h1>
+              <p class="max-w-3xl text-base text-base-content/70">
+                Bootstrap is great for quick defaults, but it becomes harder to
+                customize and maintain as your UI evolves. Tailwind keeps
+                styling flexible, composable, and design-system friendly—without
+                being tied to a framework’s opinionated components.
+              </p>
             </div>
           </div>
 
-          <div class="w-full lg:w-[26rem]">
-            <div
-              class="card border border-base-300 bg-base-100 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
-            >
-              <div class="card-body gap-3 p-5">
-                <div class="flex items-center gap-2">
-                  <Icon
-                    icon="mdi:lightbulb-outline"
-                    class="size-5 text-primary"
-                  />
-                  <div class="text-sm font-semibold">Short version</div>
-                </div>
-
-                <ul class="space-y-2 text-sm text-base-content/75">
-                  <li class="flex items-start gap-2">
-                    <Icon
-                      icon="mdi:chevron-right"
-                      class="mt-0.5 size-4 text-primary"
-                    />
-                    <span>
-                      Tailwind is <b>utility-complete</b> and supports precise
-                      layout control.
-                    </span>
-                  </li>
-                  <li class="flex items-start gap-2">
-                    <Icon
-                      icon="mdi:chevron-right"
-                      class="mt-0.5 size-4 text-primary"
-                    />
-                    <span>
-                      It avoids <b>heavy global resets</b> and reduces override
-                      battles.
-                    </span>
-                  </li>
-                  <li class="flex items-start gap-2">
-                    <Icon
-                      icon="mdi:chevron-right"
-                      class="mt-0.5 size-4 text-primary"
-                    />
-                    <span>
-                      It’s <b>not tied to JS behaviors</b>—use any component
-                      library you want.
-                    </span>
-                  </li>
-                  <li class="flex items-start gap-2">
-                    <Icon
-                      icon="mdi:chevron-right"
-                      class="mt-0.5 size-4 text-primary"
-                    />
-                    <span>
-                      It scales cleanly into a <b>real design system</b>.
-                    </span>
-                  </li>
-                </ul>
-
-                <div class="text-xs text-base-content/60">
-                  If you’ve ever spent a day undoing Bootstrap defaults, this
-                  page is for you.
-                </div>
-              </div>
+          <div class="flex flex-wrap gap-2">
+            <div class="badge badge-primary badge-outline gap-2 py-3">
+              <Icon icon="mdi:scale-balance" class="size-4" />
+              Flexibility
+            </div>
+            <div class="badge badge-secondary badge-outline gap-2 py-3">
+              <Icon icon="mdi:toolbox-outline" class="size-4" />
+              Maintainability
+            </div>
+            <div class="badge badge-accent badge-outline gap-2 py-3">
+              <Icon icon="mdi:puzzle-outline" class="size-4" />
+              Integration
+            </div>
+            <div class="badge badge-info badge-outline gap-2 py-3">
+              <Icon icon="mdi:palette-swatch" class="size-4" />
+              Design Systems
             </div>
           </div>
         </div>
+      </template>
 
-        <!-- Comparison table -->
-        <div class="rounded-2xl border border-base-300 bg-base-100 p-5">
-          <div class="mb-3 flex items-center gap-2">
-            <Icon icon="mdi:compare" class="size-5 text-secondary" />
-            <div class="font-semibold">
-              Bootstrap vs Tailwind (practical differences)
+      <template #right>
+        <div
+          class="card border border-base-300 bg-base-100 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+        >
+          <div class="card-body gap-3 p-5">
+            <div class="flex items-center gap-2">
+              <Icon icon="mdi:lightbulb-outline" class="size-5 text-primary" />
+              <div class="text-sm font-semibold">Short version</div>
+            </div>
+
+            <ul class="space-y-2 text-sm text-base-content/75">
+              <li class="flex items-start gap-2">
+                <Icon
+                  icon="mdi:chevron-right"
+                  class="mt-0.5 size-4 text-primary"
+                />
+                <span>
+                  Tailwind is <b>utility-complete</b> and supports precise
+                  layout control.
+                </span>
+              </li>
+              <li class="flex items-start gap-2">
+                <Icon
+                  icon="mdi:chevron-right"
+                  class="mt-0.5 size-4 text-primary"
+                />
+                <span>
+                  It avoids <b>heavy global resets</b> and reduces override
+                  battles.
+                </span>
+              </li>
+              <li class="flex items-start gap-2">
+                <Icon
+                  icon="mdi:chevron-right"
+                  class="mt-0.5 size-4 text-primary"
+                />
+                <span>
+                  It’s <b>not tied to JS behaviors</b>—use any component library
+                  you want.
+                </span>
+              </li>
+              <li class="flex items-start gap-2">
+                <Icon
+                  icon="mdi:chevron-right"
+                  class="mt-0.5 size-4 text-primary"
+                />
+                <span>
+                  It scales cleanly into a <b>real design system</b>.
+                </span>
+              </li>
+            </ul>
+
+            <div class="text-xs text-base-content/60">
+              If you’ve ever spent a day undoing Bootstrap defaults, this page
+              is for you.
             </div>
           </div>
+        </div>
+      </template>
 
-          <div class="overflow-x-auto">
-            <table class="table table-zebra w-full">
-              <thead>
-                <tr>
-                  <th class="w-[180px]">Area</th>
-                  <th>Bootstrap</th>
-                  <th>Tailwind</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="row in comparisons" :key="row.title">
-                  <td class="font-semibold">{{ row.title }}</td>
-                  <td class="text-sm text-base-content/70">
-                    {{ row.bootstrap }}
-                  </td>
-                  <td class="text-sm text-base-content/70">
-                    {{ row.tailwind }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+      <!-- Default slot content (below the top row) -->
+      <div class="rounded-2xl border border-base-300 bg-base-100 p-5">
+        <div class="mb-3 flex items-center gap-2">
+          <Icon icon="mdi:compare" class="size-5 text-secondary" />
+          <div class="font-semibold">
+            Bootstrap vs Tailwind (practical differences)
           </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="table table-zebra w-full">
+            <thead>
+              <tr>
+                <th class="w-[180px]">Area</th>
+                <th>Bootstrap</th>
+                <th>Tailwind</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="row in comparisons" :key="row.title">
+                <td class="font-semibold">{{ row.title }}</td>
+                <td class="text-sm text-base-content/70">
+                  {{ row.bootstrap }}
+                </td>
+                <td class="text-sm text-base-content/70">
+                  {{ row.tailwind }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
-    </section>
+    </HeroCard>
 
     <!-- MAIN POINTS -->
     <section class="grid grid-cols-1 gap-6">

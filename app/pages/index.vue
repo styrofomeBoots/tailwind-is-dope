@@ -233,202 +233,180 @@ const toneToIconWrap: Record<Pill["tone"], string> = {
 
 <template>
   <div class="mx-auto max-w-6xl space-y-8">
-    <!-- HERO -->
-    <section
-      class="relative overflow-hidden rounded-2xl border bg-base-100/80 shadow-sm backdrop-blur"
-    >
-      <!-- soft color blobs -->
-      <div
-        class="pointer-events-none absolute -left-24 -top-24 size-72 rounded-full bg-primary/15 blur-3xl"
-      />
-      <div
-        class="pointer-events-none absolute -right-24 -bottom-24 size-72 rounded-full bg-secondary/15 blur-3xl"
-      />
-      <div
-        class="pointer-events-none absolute left-1/2 top-1/2 size-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/10 blur-3xl"
-      />
-      <div
-        class="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-base-300/60"
-      />
-
-      <div class="relative space-y-6 p-6 md:p-8">
-        <div
-          class="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between"
-        >
-          <div class="space-y-4">
-            <div class="flex items-start gap-4">
-              <div
-                class="rounded-2xl bg-base-200/70 p-3 shadow-sm ring-1 ring-base-300/70"
-              >
-                <Icon icon="mdi:tailwind" class="size-8" />
-              </div>
-
-              <div class="space-y-2">
-                <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">
-                  What Tailwind is (and why it works)
-                </h1>
-                <p class="max-w-3xl text-base text-base-content/70">
-                  Tailwind CSS is a utility-first framework: instead of shipping
-                  pre-styled components, it gives you low-level building blocks
-                  (spacing, layout, typography, color) that you compose into
-                  your own design system.
-                </p>
-                <p class="max-w-3xl text-sm text-base-content/60">
-                  Think: <b>design tokens + utilities + variants</b>. You get
-                  control, consistency, and speed—without fighting global resets
-                  or framework opinions.
-                </p>
-              </div>
+    <HeroCard>
+      <template #left>
+        <div class="space-y-4">
+          <div class="flex items-start gap-4">
+            <div
+              class="rounded-2xl bg-primary/10 p-3 text-primary ring-1 ring-base-300/60"
+            >
+              <Icon icon="mdi:tailwind" class="size-6" />
             </div>
 
-            <div class="flex flex-wrap gap-2">
-              <div
-                v-for="p in pills"
-                :key="p.label"
-                class="badge badge-outline gap-2 py-3"
-                :class="
-                  p.tone === 'primary'
-                    ? 'badge-primary'
-                    : p.tone === 'secondary'
-                    ? 'badge-secondary'
-                    : p.tone === 'accent'
-                    ? 'badge-accent'
-                    : p.tone === 'info'
-                    ? 'badge-info'
-                    : p.tone === 'success'
-                    ? 'badge-success'
-                    : 'badge-warning'
-                "
-              >
-                <Icon :icon="p.icon" class="size-4" />
-                {{ p.label }}
-              </div>
-            </div>
-
-            <div class="flex flex-wrap gap-2">
-              <button
-                class="btn btn-primary shadow-sm"
-                type="button"
-                @click="scrollToId('how-it-works')"
-              >
-                <Icon icon="mdi:rocket-launch-outline" class="size-5" />
-                How it works
-              </button>
-
-              <button
-                class="btn btn-secondary shadow-sm"
-                type="button"
-                @click="scrollToId('patterns')"
-              >
-                <Icon icon="mdi:view-grid-outline" class="size-5" />
-                Common patterns
-              </button>
-
-              <button
-                class="btn btn-accent shadow-sm"
-                type="button"
-                @click="scrollToId('gotchas')"
-              >
-                <Icon icon="mdi:alert-outline" class="size-5" />
-                Gotchas
-              </button>
+            <div class="space-y-2">
+              <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">
+                What Tailwind is (and why it works)
+              </h1>
+              <p class="max-w-3xl text-base text-base-content/70">
+                Tailwind CSS is a utility-first framework: instead of shipping
+                pre-styled components, it gives you low-level building blocks
+                (spacing, layout, typography, color) that you compose into your
+                own design system.
+              </p>
+              <p class="max-w-3xl text-sm text-base-content/60">
+                Think: <b>design tokens + utilities + variants</b>. You get
+                control, consistency, and speed—without fighting global resets
+                or framework opinions.
+              </p>
             </div>
           </div>
 
-          <!-- Quick definition card -->
-          <div class="w-full lg:w-[26rem]">
+          <div class="flex flex-wrap gap-2">
             <div
-              class="card border border-base-300 bg-base-100 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+              v-for="p in pills"
+              :key="p.label"
+              class="badge badge-outline gap-2 py-3"
+              :class="
+                p.tone === 'primary'
+                  ? 'badge-primary'
+                  : p.tone === 'secondary'
+                  ? 'badge-secondary'
+                  : p.tone === 'accent'
+                  ? 'badge-accent'
+                  : p.tone === 'info'
+                  ? 'badge-info'
+                  : p.tone === 'success'
+                  ? 'badge-success'
+                  : 'badge-warning'
+              "
             >
-              <div class="card-body gap-4 p-5">
-                <div class="flex items-center gap-2">
-                  <Icon
-                    icon="mdi:information-outline"
-                    class="size-5 text-primary"
-                  />
-                  <div class="text-sm font-semibold">In one sentence</div>
-                </div>
+              <Icon :icon="p.icon" class="size-4" />
+              {{ p.label }}
+            </div>
+          </div>
 
-                <div class="rounded-2xl border bg-base-200/50 p-4">
-                  <p class="text-sm text-base-content/80">
-                    Tailwind is a <b>utility-first</b> CSS framework that helps
-                    you build UI using <b>composable classes</b> powered by a
-                    shared <b>theme scale</b>, with responsive and state styles
-                    built in.
-                  </p>
-                </div>
+          <div class="flex flex-wrap gap-2">
+            <button
+              class="btn btn-primary shadow-sm"
+              type="button"
+              @click="scrollToId('how-it-works')"
+            >
+              <Icon icon="mdi:rocket-launch-outline" class="size-5" />
+              How it works
+            </button>
 
-                <div class="text-xs text-base-content/60">
-                  It’s not “no CSS.” It’s “less custom CSS, more predictable
-                  composition.”
+            <button
+              class="btn btn-secondary shadow-sm"
+              type="button"
+              @click="scrollToId('patterns')"
+            >
+              <Icon icon="mdi:view-grid-outline" class="size-5" />
+              Common patterns
+            </button>
+
+            <button
+              class="btn btn-accent shadow-sm"
+              type="button"
+              @click="scrollToId('gotchas')"
+            >
+              <Icon icon="mdi:alert-outline" class="size-5" />
+              Gotchas
+            </button>
+          </div>
+        </div>
+      </template>
+
+      <template #right>
+        <!-- Quick definition card -->
+        <div
+          class="card border border-base-300 bg-base-100 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+        >
+          <div class="card-body gap-4 p-5">
+            <div class="flex items-center gap-2">
+              <Icon
+                icon="mdi:information-outline"
+                class="size-5 text-primary"
+              />
+              <div class="text-sm font-semibold">In one sentence</div>
+            </div>
+
+            <div class="rounded-2xl border bg-base-200/50 p-4">
+              <p class="text-sm text-base-content/80">
+                Tailwind is a <b>utility-first</b> CSS framework that helps you
+                build UI using <b>composable classes</b> powered by a shared
+                <b>theme scale</b>, with responsive and state styles built in.
+              </p>
+            </div>
+
+            <div class="text-xs text-base-content/60">
+              It’s not “no CSS.” It’s “less custom CSS, more predictable
+              composition.”
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <!-- Default slot content (below the top row) -->
+      <section class="card border border-base-300 bg-base-100 shadow-sm">
+        <div class="card-body space-y-4">
+          <div class="flex items-center gap-3">
+            <div
+              class="rounded-2xl bg-secondary/10 p-3 text-secondary ring-1 ring-base-300/60"
+            >
+              <Icon icon="mdi:brain" class="size-6" />
+            </div>
+            <div>
+              <h2 class="text-lg font-bold">Tailwind mental model</h2>
+              <p class="text-sm text-base-content/60">
+                This is the whole framework.
+              </p>
+            </div>
+          </div>
+
+          <div class="grid gap-3 md:grid-cols-3">
+            <div
+              v-for="m in mentalModel"
+              :key="m.title"
+              class="rounded-2xl border bg-base-200/40 p-4"
+              :class="toneToAccent[m.tone]"
+            >
+              <div class="flex items-center gap-3">
+                <div
+                  class="rounded-2xl p-3 ring-1 ring-base-300/60"
+                  :class="toneToIconWrap[m.tone]"
+                >
+                  <Icon :icon="m.icon" class="size-6" />
                 </div>
+                <div class="min-w-0">
+                  <div class="font-semibold">{{ m.title }}</div>
+                  <div class="text-sm text-base-content/70">
+                    {{ m.desc }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-2xl border border-info/25 bg-info/5 p-4">
+            <div class="flex items-start gap-3">
+              <div
+                class="rounded-2xl bg-info/15 p-3 text-info ring-1 ring-base-300/60"
+              >
+                <Icon icon="mdi:lightbulb-outline" class="size-6" />
+              </div>
+              <div class="space-y-1">
+                <div class="font-semibold">Key idea</div>
+                <p class="text-sm text-base-content/70">
+                  Tailwind doesn’t give you “a look.” It gives you a
+                  <b>system</b>
+                  that makes your own look easy to build and maintain.
+                </p>
               </div>
             </div>
           </div>
         </div>
-
-        <!-- Mental model -->
-        <section class="card border border-base-300 bg-base-100 shadow-sm">
-          <div class="card-body space-y-4">
-            <div class="flex items-center gap-3">
-              <div
-                class="rounded-2xl bg-secondary/10 p-3 text-secondary ring-1 ring-base-300/60"
-              >
-                <Icon icon="mdi:brain" class="size-6" />
-              </div>
-              <div>
-                <h2 class="text-lg font-bold">Tailwind mental model</h2>
-                <p class="text-sm text-base-content/60">
-                  This is the whole framework.
-                </p>
-              </div>
-            </div>
-
-            <div class="grid gap-3 md:grid-cols-3">
-              <div
-                v-for="m in mentalModel"
-                :key="m.title"
-                class="rounded-2xl border bg-base-200/40 p-4"
-                :class="toneToAccent[m.tone]"
-              >
-                <div class="flex items-center gap-3">
-                  <div
-                    class="rounded-2xl p-3 ring-1 ring-base-300/60"
-                    :class="toneToIconWrap[m.tone]"
-                  >
-                    <Icon :icon="m.icon" class="size-6" />
-                  </div>
-                  <div class="min-w-0">
-                    <div class="font-semibold">{{ m.title }}</div>
-                    <div class="text-sm text-base-content/70">
-                      {{ m.desc }}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="rounded-2xl border border-info/25 bg-info/5 p-4">
-              <div class="flex items-start gap-3">
-                <div
-                  class="rounded-2xl bg-info/15 p-3 text-info ring-1 ring-base-300/60"
-                >
-                  <Icon icon="mdi:lightbulb-outline" class="size-6" />
-                </div>
-                <div class="space-y-1">
-                  <div class="font-semibold">Key idea</div>
-                  <p class="text-sm text-base-content/70">
-                    Tailwind doesn’t give you “a look.” It gives you a
-                    <b>system</b> that makes your own look easy to build and
-                    maintain.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-    </section>
+      </section>
+    </HeroCard>
 
     <!-- HOW IT WORKS -->
     <section id="how-it-works" class="space-y-5">
