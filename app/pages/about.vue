@@ -12,7 +12,7 @@ import { Icon } from "@iconify/vue";
             <div
               class="rounded-2xl bg-primary/10 p-3 text-primary ring-1 ring-base-300/60"
             >
-              <Icon icon="mdi:information-outline" class="size-6" />
+              <Icon icon="ph:hand-peace-light" class="size-6" />
             </div>
 
             <div class="space-y-2">
@@ -32,10 +32,13 @@ import { Icon } from "@iconify/vue";
                 <p>
                   My dog is built on efficiency, a fifty-pound bag of food lasts
                   about 400 days. I stopped believing in favorite colors in
-                  January 2021, but it was purple. I never cared about having a
-                  Christmas tree until this year. Now I’m excited. I think
-                  smoking cigarettes looks cool and I would do it if they didn’t
-                  make me sick.
+                  January 2021, but it was purple.
+                </p>
+
+                <p>
+                  Not a fan of anime but I like Chainsaw Man. I think smoking
+                  cigarettes looks cool and I would probably do it if they
+                  didn’t make me sick.
                 </p>
 
                 <p>Enjoy the Rita pics.</p>
@@ -59,8 +62,8 @@ import { Icon } from "@iconify/vue";
               ex-purple
             </div>
             <div class="badge badge-info badge-outline gap-2 py-3">
-              <Icon icon="mdi:pine-tree" class="size-4" />
-              stoked
+              <Icon icon="game-icons:chainsaw" class="size-4" />
+              chainsaw man
             </div>
             <div class="badge badge-accent badge-outline gap-2 py-3">
               <Icon icon="ph:cigarette-light" class="size-4" />
@@ -71,17 +74,14 @@ import { Icon } from "@iconify/vue";
       </template>
 
       <template #right>
-        <!-- Bigger, cleaner photo card -->
         <div
           class="card border border-base-300 bg-base-100 shadow-sm overflow-hidden transition hover:-translate-y-0.5 hover:shadow-md"
         >
           <div class="relative">
-            <img
-              src="/images/rita/seth-and-rita.png"
-              alt="Seth, and Rita"
-              class="h-[20rem] w-full object-cover object-top"
-              loading="lazy"
-            />
+            <img src="/images/rita/seth-and-rita.png" alt="Seth, and Rita"
+            loading="lazy" class="w-full block object-cover h-[26rem]
+            sm:h-[28rem] md:h-[40rem] lg:h-[20rem] [object-position:50%_12%]
+            lg:object-top"" />
           </div>
         </div>
       </template>

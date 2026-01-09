@@ -28,6 +28,15 @@ const navItems: NavItem[] = [
   { label: "Theming", to: "/theming", icon: "mdi:paint-outline" },
   { label: "About", to: "/about", icon: "mingcute:dog-line" },
 ];
+
+const closeDrawerIfToggleable = (): void => {
+  if (import.meta.client) {
+    if (globalThis.matchMedia("(min-width: 1024px)").matches) return;
+
+    const el = document.getElementById("app-drawer") as HTMLInputElement | null;
+    if (el) el.checked = false;
+  }
+};
 </script>
 
 <template>
@@ -82,7 +91,7 @@ const navItems: NavItem[] = [
     </div>
 
     <!-- Sidebar -->
-    <div class="drawer-side">
+    <div class="drawer-side z-50">
       <label
         for="app-drawer"
         aria-label="close sidebar"
@@ -111,9 +120,10 @@ const navItems: NavItem[] = [
               class="gap-3"
               active-class="menu-active"
               exact-active-class="menu-active"
+              @click="closeDrawerIfToggleable"
             >
-              <Icon :icon="item.icon" class="size-5" />
-              <span>{{ item.label }}</span>
+              <Icon :icon="item.icon" class="size-6" />
+              <span class="text-lg">{{ item.label }}</span>
             </NuxtLink>
           </li>
         </ul>

@@ -130,17 +130,13 @@ onBeforeUnmount((): void => {
           </div>
 
           <div class="flex flex-wrap gap-2">
-            <div class="badge badge-info badge-outline gap-2 py-3">
-              <Icon icon="mdi:emoticon-confused-outline" class="size-4" />
-              “Feels off”
-            </div>
             <div class="badge badge-success badge-outline gap-2 py-3">
               <Icon icon="mdi:check-circle-outline" class="size-4" />
-              Scales clean
+              scales clean
             </div>
-            <div class="badge badge-warning badge-outline gap-2 py-3">
+            <div class="badge badge-secondary badge-outline gap-2 py-3">
               <Icon icon="mdi:alert-circle-outline" class="size-4" />
-              Clips/wraps
+              gets weird
             </div>
           </div>
         </div>
@@ -262,7 +258,7 @@ onBeforeUnmount((): void => {
               </div>
 
               <div
-                class="flex items-center justify-between rounded-xl bg-base-200/70 px-4 h-16 ring-1 ring-base-300/60"
+                class="flex items-center justify-between rounded-xl bg-base-200/70 px-4 h-16 ring-1 ring-base-300/60 border border-success/25"
               >
                 <div class="min-w-0">
                   <div class="font-semibold truncate">
@@ -293,7 +289,7 @@ onBeforeUnmount((): void => {
               </div>
 
               <div
-                class="flex items-center justify-between rounded-xl bg-base-200/70 px-4 h-[56px] ring-1 ring-base-300/60"
+                class="flex items-center justify-between rounded-xl bg-base-200/70 px-4 h-[56px] ring-1 ring-base-300/60 border border-secondary/25"
               >
                 <div class="min-w-0">
                   <div class="font-semibold truncate">
@@ -349,7 +345,7 @@ onBeforeUnmount((): void => {
                 >
               </div>
 
-              <button class="btn btn-success btn-wide shadow-sm">
+              <button class="btn btn-success shadow-sm">
                 <Icon icon="mdi:gesture-tap-button" class="size-5" />
                 Action button
               </button>
@@ -510,12 +506,13 @@ onBeforeUnmount((): void => {
                 REM max-width
               </div>
               <div
-                class="rounded-xl bg-base-200/70 p-4 max-w-[24rem] ring-1 ring-base-300/60"
+                class="rounded-xl bg-base-200/70 p-4 max-w-[24rem] ring-1 ring-base-300/60 border border-success/25"
               >
                 <div class="font-semibold">Payment notice</div>
                 <p class="text-sm text-base-content/70">
-                  Uses <code>24rem</code>. Stays readable as font size
-                  increases.
+                  Uses <code>24rem</code>. Stays readable as font size increases
+                  regardless of the user's font size settings or the content
+                  length.
                 </p>
               </div>
             </div>
@@ -531,12 +528,13 @@ onBeforeUnmount((): void => {
                 PX max-width
               </div>
               <div
-                class="rounded-xl bg-base-200/70 p-4 max-w-[320px] ring-1 ring-base-300/60"
+                class="rounded-xl bg-base-200/70 p-4 max-w-[320px] ring-1 ring-base-300/60 border border-secondary/25"
               >
                 <div class="font-semibold">Payment notice</div>
                 <p class="text-sm text-base-content/70">
-                  Uses <code>320px</code>. At large roots, wrapping gets
-                  extreme.
+                  Uses <code>320px</code>. At large roots, wrapping gets extreme
+                  and the content becomes cramped and less aesthetically
+                  pleasing.
                 </p>
               </div>
             </div>

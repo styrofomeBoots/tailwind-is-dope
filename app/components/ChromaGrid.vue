@@ -16,22 +16,9 @@ interface GridMotionProps {
   damping?: number;
   fadeOut?: number;
   ease?: string;
-  /**
-   * If true: remove tiles that fail to load (recommended for deploy issues)
-   * If false: keep them but show a fallback placeholder
-   */
   hideOnError?: boolean;
-  /**
-   * If true: don't show tile contents until loaded (fade-in)
-   */
   fadeInOnLoad?: boolean;
-  /**
-   * If true: show a skeleton placeholder while pending
-   */
   showSkeleton?: boolean;
-  /**
-   * Log broken image URLs in console (helps you fix real deploy problem)
-   */
   debugImageErrors?: boolean;
 }
 
@@ -331,7 +318,7 @@ const fadeStyle: Record<string, string | number> = {
       <article
         v-for="(c, i) in visibleCards"
         :key="c._key"
-        class="group relative mb-0 inline-block w-full break-inside-avoid rounded-[20px] overflow-hidden border border-[#333] hover:border-[var(--card-border)] transition-all duration-300"
+        class="group relative mb-0 inline-block w-full break-inside-avoid border border-[#333] hover:border-[var(--card-border)] transition-all duration-300"
         :style="{
           '--mouse-x': '50%',
           '--mouse-y': '50%',
