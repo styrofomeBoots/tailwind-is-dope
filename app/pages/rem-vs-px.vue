@@ -210,7 +210,7 @@ onBeforeUnmount((): void => {
     </section>
 
     <!-- DEMOS (ONE CARD PER ROW) -->
-    <div class="grid grid-cols-1 gap-6">
+    <div ref="demoGridRef" class="grid grid-cols-1 gap-6">
       <!-- 1) Icon + heading proportionality -->
       <DemoCard
         title="1) Icon + heading drift"

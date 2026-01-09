@@ -6,6 +6,11 @@ export default defineNuxtConfig({
   css: ["~/assets/css/main.css"],
   devtools: { enabled: true },
   ssr: false,
+  app: {
+    head: {
+      link: [{ rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }],
+    },
+  },
   vite: {
     plugins: [tailwindcss() as any satisfies PluginOption],
   },
