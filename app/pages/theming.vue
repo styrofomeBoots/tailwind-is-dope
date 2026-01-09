@@ -215,26 +215,26 @@ onBeforeUnmount((): void => {
   window.removeEventListener("resize", onScroll);
 });
 </script>
+
 <template>
   <section ref="trackEl" class="relative h-[500vh]">
     <div
-      class="sticky top-[calc(50vh-10rem)] mx-auto grid w-[calc(100%-2rem)] max-w-[85rem] overflow-hidden rounded-2xl sm:top-20"
+      class="sticky top-[calc(50vh-10rem)] mx-auto grid w-[calc(100%-2rem)] max-w-[85rem] rounded-2xl sm:top-20"
     >
       <div
-        class="col-start-1 row-start-1 flex items-start"
+        class="col-start-1 row-start-1 flex items-start rounded-2xl"
         :data-theme="activeTheme"
       >
         <div
-          class="border-base-200 flex w-full items-stretch justify-center gap-6 rounded-2xl border p-6 xl:h-[40rem] xl:justify-normal"
+          class="border-base-200 flex w-full flex-wrap items-stretch justify-center gap-6 rounded-2xl border p-6 xl:flex-nowrap xl:justify-normal xl:h-[40rem] rounded-2xl"
         >
-          <!-- LEFT COLUMN (hidden until xl) -->
-          <div class="hidden flex-col gap-6 xl:flex">
+          <!-- LEFT COLUMN (only at 2xl+) -->
+          <div class="hidden flex-col gap-6 2xl:flex">
             <div class="flex gap-6">
               <!-- icon rail -->
               <div class="rounded-box bg-base-200 h-full">
                 <ul class="menu">
                   <li class="menu-title">
-                    <!-- grid icon -->
                     <svg
                       width="20"
                       height="20"
@@ -269,29 +269,20 @@ onBeforeUnmount((): void => {
                     </svg>
                   </li>
 
-                  <!-- reuse your other icons as buttons -->
                   <li>
                     <button tabindex="-1" class="active" aria-label="demo icon">
                       📈
                     </button>
                   </li>
-                  <li>
-                    <button tabindex="-1" aria-label="demo icon">❤️</button>
-                  </li>
-                  <li>
-                    <button tabindex="-1" aria-label="demo icon">💬</button>
-                  </li>
-                  <li>
-                    <button tabindex="-1" aria-label="demo icon">👤</button>
-                  </li>
-                  <li>
-                    <button tabindex="-1" aria-label="demo icon">📦</button>
-                  </li>
+                  <li><button tabindex="-1">❤️</button></li>
+                  <li><button tabindex="-1">💬</button></li>
+                  <li><button tabindex="-1">👤</button></li>
+                  <li><button tabindex="-1">📦</button></li>
                 </ul>
               </div>
 
               <!-- Admin panel -->
-              <div class="rounded-box bg-base-200 h-full w-60 shrink-0">
+              <div class="rounded-box bg-base-200 h-full w-56 shrink-0">
                 <ul class="menu w-full">
                   <li class="menu-title">Admin panel</li>
                   <li>
@@ -309,7 +300,6 @@ onBeforeUnmount((): void => {
               </div>
             </div>
 
-            <!-- button grid -->
             <div
               aria-hidden="true"
               class="rounded-box bg-base-200 grid grow grid-cols-2 gap-4 p-6"
@@ -338,8 +328,8 @@ onBeforeUnmount((): void => {
           </div>
 
           <!-- CENTER COLUMN -->
-          <div class="flex grow flex-col gap-6 min-w-0">
-            <!-- navbar -->
+          <div class="flex grow flex-col gap-2 min-w-0">
+            <!-- navbar: show earlier (xl), so it doesn't feel empty -->
             <div class="navbar bg-base-200 rounded-box hidden xl:flex">
               <div class="grow">
                 <button
@@ -378,7 +368,7 @@ onBeforeUnmount((): void => {
 
             <!-- hero -->
             <div
-              class="rounded-box flex grow flex-col px-6 pt-12 pb-8 text-center"
+              class="rounded-box flex grow flex-col px-2 pt-4 pb-2 text-center"
             >
               <div
                 class="font-title text-[clamp(1.5rem,6vw,3rem)] leading-none font-black"
@@ -393,16 +383,11 @@ onBeforeUnmount((): void => {
 
               <p
                 class="text-base-content/80 mx-auto max-w-lg text-sm font-light"
-              >
-                daisyUI adds a set of customizable color names to Tailwind CSS
-                and these new colors use CSS variables for the values. Using
-                daisyUI color names, you get Dark Mode and even more themes
-                without adding a new class name.
-              </p>
+              ></p>
 
               <div class="h-4"></div>
 
-              <div class="flex items-center justify-center gap-3">
+              <div class="flex flex-wrap items-center justify-center gap-3">
                 <a
                   class="btn btn-wide btn-primary no-grow"
                   href="#"
@@ -414,77 +399,99 @@ onBeforeUnmount((): void => {
                 <div class="badge badge-outline">
                   {{ activeTheme }}
                 </div>
+
+                <div class="badge badge-secondary badge-outline">
+                  CSS variables
+                </div>
               </div>
             </div>
 
-            <!-- toggles / checkboxes -->
+            <!-- COOL STRIP (visible starting xl so 1280-1535 has "more") -->
             <div class="card bg-base-200 hidden xl:flex">
-              <div class="card-body">
-                <div class="flex h-full items-center justify-between gap-6">
-                  <input
-                    checked
-                    type="checkbox"
-                    class="toggle pointer-events-none"
-                  />
-                  <input
-                    checked
-                    type="checkbox"
-                    class="toggle toggle-primary pointer-events-none"
-                  />
-                  <input
-                    checked
-                    type="checkbox"
-                    class="toggle toggle-secondary pointer-events-none"
-                  />
-                  <input
-                    checked
-                    type="checkbox"
-                    class="toggle toggle-accent pointer-events-none"
-                  />
-                  <input
-                    checked
-                    type="checkbox"
-                    class="checkbox pointer-events-none"
-                  />
-                  <input
-                    checked
-                    type="checkbox"
-                    class="checkbox checkbox-primary pointer-events-none"
-                  />
-                  <input
-                    checked
-                    type="checkbox"
-                    class="checkbox checkbox-secondary pointer-events-none"
-                  />
-                  <input
-                    checked
-                    type="checkbox"
-                    class="checkbox checkbox-accent pointer-events-none"
-                  />
+              <div class="card-body gap-4">
+                <div class="flex flex-wrap items-center justify-between gap-4">
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="radial-progress text-primary"
+                      style="--value: 72; --size: 3rem"
+                    >
+                      72%
+                    </div>
+                    <div>
+                      <div class="font-semibold">Theme adoption</div>
+                      <div class="text-xs text-base-content/60">in this UI</div>
+                    </div>
+                  </div>
+
+                  <div class="flex items-center gap-3">
+                    <progress
+                      class="progress progress-secondary w-40"
+                      value="55"
+                      max="100"
+                    ></progress>
+                    <div class="text-sm font-semibold">Contrast</div>
+                  </div>
+
+                  <div class="flex items-center gap-2">
+                    <span class="badge badge-success">Tokens</span>
+                    <span class="badge badge-info">Components</span>
+                    <span class="badge badge-warning">Variants</span>
+                  </div>
+                </div>
+
+                <div class="grid gap-3 sm:grid-cols-3">
+                  <div
+                    class="rounded-box bg-base-100 p-3 ring-1 ring-base-300/60"
+                  >
+                    <div class="text-xs text-base-content/60">Primary</div>
+                    <div class="font-bold text-primary text-lg">
+                      #{{ activeTheme }}
+                    </div>
+                  </div>
+
+                  <div
+                    class="rounded-box bg-base-100 p-3 ring-1 ring-base-300/60"
+                  >
+                    <div class="text-xs text-base-content/60">Secondary</div>
+                    <div class="font-bold text-secondary text-lg">Variants</div>
+                  </div>
+
+                  <div
+                    class="rounded-box bg-base-100 p-3 ring-1 ring-base-300/60"
+                  >
+                    <div class="text-xs text-base-content/60">Accent</div>
+                    <div class="font-bold text-accent text-lg">System</div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- RIGHT COLUMN (semantic colors) -->
+          <!-- RIGHT COLUMN (show at xl instead of 2xl) -->
           <div
-            class="rounded-box bg-base-200 card hidden h-full w-80 shrink-0 xl:flex"
+            class="rounded-box bg-base-200 card hidden h-full w-[20rem] shrink-0 xl:flex 2xl:w-[22rem]"
           >
             <div class="card-body">
-              <div class="card-title mb-4 text-sm">Semantic colors</div>
-              <div class="grid grid-cols-4 gap-4 w-fit">
+              <div class="flex items-center justify-between gap-2">
+                <div class="card-title text-sm">Semantic colors</div>
+                <div class="badge badge-outline">
+                  {{ activeTheme }}
+                </div>
+              </div>
+
+              <div class="mt-2 grid grid-cols-4 gap-3">
                 <div
                   v-for="group in themeGroups"
                   :key="group.label"
                   :class="group.colSpanClass"
                   class="flex flex-col gap-1"
                 >
-                  <div class="flex gap-4 flex-wrap">
+                  <div class="flex flex-wrap gap-3">
                     <button
                       v-for="swatch in group.swatches"
                       :key="swatch.label"
                       type="button"
-                      class="border-base-content/10 outline-base-content grid h-10 w-14 cursor-pointer place-items-center rounded-lg border-1 outline-offset-2 focus:outline-2"
+                      class="border-base-content/10 outline-base-content grid h-9 w-12 cursor-pointer place-items-center rounded-lg border-1 outline-offset-2 focus:outline-2"
                       :class="swatch.extraClass"
                       :aria-label="`Choose ${swatch.label}`"
                       :title="swatch.label"
@@ -505,6 +512,35 @@ onBeforeUnmount((): void => {
                   </div>
                 </div>
               </div>
+
+              <!-- EXTRA COOL STUFF -->
+              <div
+                class="mt-4 rounded-box bg-base-100 p-4 ring-1 ring-base-300/60"
+              >
+                <div class="flex items-center justify-between">
+                  <div class="font-semibold text-sm">Theme tokens</div>
+                  <span class="badge badge-primary badge-outline">live</span>
+                </div>
+
+                <div class="mt-3 space-y-2 text-xs text-base-content/70">
+                  <div class="flex items-center justify-between">
+                    <span>--p</span>
+                    <span class="font-mono text-primary">primary</span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span>--s</span>
+                    <span class="font-mono text-secondary">secondary</span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span>--a</span>
+                    <span class="font-mono text-accent">accent</span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span>--bc</span>
+                    <span class="font-mono">base-content</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <!-- /RIGHT -->
@@ -515,7 +551,6 @@ onBeforeUnmount((): void => {
 </template>
 
 <style scoped>
-/* prevents any transform scaling on hover/active (daisyUI hover sometimes scales) */
 .no-grow {
   transform: none !important;
 }

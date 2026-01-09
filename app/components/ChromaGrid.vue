@@ -6,6 +6,7 @@ interface CardItem {
   alt: string;
   borderColor: string;
   gradient: string;
+  url?: string;
 }
 
 interface GridMotionProps {
@@ -15,6 +16,23 @@ interface GridMotionProps {
   damping?: number;
   fadeOut?: number;
   ease?: string;
+  /**
+   * If true: remove tiles that fail to load (recommended for deploy issues)
+   * If false: keep them but show a fallback placeholder
+   */
+  hideOnError?: boolean;
+  /**
+   * If true: don't show tile contents until loaded (fade-in)
+   */
+  fadeInOnLoad?: boolean;
+  /**
+   * If true: show a skeleton placeholder while pending
+   */
+  showSkeleton?: boolean;
+  /**
+   * Log broken image URLs in console (helps you fix real deploy problem)
+   */
+  debugImageErrors?: boolean;
 }
 
 const props = withDefaults(defineProps<GridMotionProps>(), {
@@ -24,6 +42,10 @@ const props = withDefaults(defineProps<GridMotionProps>(), {
   damping: 0.45,
   fadeOut: 0.6,
   ease: "power3.out",
+  hideOnError: true,
+  fadeInOnLoad: true,
+  showSkeleton: true,
+  debugImageErrors: true,
 });
 
 const rootRef = useTemplateRef<HTMLElement>("rootRef");
@@ -105,7 +127,6 @@ const demo: CardItem[] = [
     borderColor: "#06B6D4",
     gradient: "linear-gradient(135deg,#06B6D4,#000)",
   },
-
   {
     image: "/images/rita/rita-12.JPG",
     alt: "rita 12",
@@ -158,6 +179,51 @@ const demo: CardItem[] = [
 
 const data = computed(() => (props.items.length ? props.items : demo));
 
+/**
+ * Track image load state per card.
+ * IMPORTANT:
+ * - you cannot v-if the tile before load or it will never attempt to load.
+ * - so we render it, then remove if error OR fade in when loaded.
+ */
+type LoadState = "pending" | "loaded" | "error";
+const loadStateByKey = shallowRef<Record<string, LoadState>>({});
+
+const keyFor = (c: CardItem, i: number): string => `${c.image}__${i}`;
+
+const setLoadState = (key: string, state: LoadState): void => {
+  loadStateByKey.value = { ...loadStateByKey.value, [key]: state };
+};
+
+const getLoadState = (key: string): LoadState =>
+  loadStateByKey.value[key] ?? "pending";
+
+const isLoaded = (key: string): boolean => getLoadState(key) === "loaded";
+const isError = (key: string): boolean => getLoadState(key) === "error";
+
+/**
+ * Cards we allow to render:
+ * - if hideOnError = true -> remove failed images
+ * - else -> keep them, but show fallback UI
+ */
+const visibleCards = computed((): (CardItem & { _key: string })[] => {
+  return data.value
+    .map((c, i) => ({ ...c, _key: keyFor(c, i) }))
+    .filter((c) => (props.hideOnError ? !isError(c._key) : true));
+});
+
+const onImgLoad = (key: string): void => {
+  setLoadState(key, "loaded");
+};
+
+const onImgError = (key: string, src: string): void => {
+  setLoadState(key, "error");
+
+  if (props.debugImageErrors) {
+    // eslint-disable-next-line no-console
+    console.warn("[GridMotion] image failed:", src);
+  }
+};
+
 onMounted(() => {
   const el = rootRef.value;
   if (!el) return;
@@ -168,9 +234,11 @@ onMounted(() => {
   setY.value = gsap.quickSetter(el, "--y", "px") as (
     value: number | string
   ) => void;
+
   const { width, height } = el.getBoundingClientRect();
   pos.x = width / 2;
   pos.y = height / 2;
+
   setX.value?.(pos.x);
   setY.value?.(pos.y);
 });
@@ -192,7 +260,9 @@ const moveTo = (x: number, y: number) => {
 const handleMove = (e: PointerEvent) => {
   const r = rootRef.value?.getBoundingClientRect();
   if (!r) return;
+
   moveTo(e.clientX - r.left, e.clientY - r.top);
+
   if (fadeRef.value) {
     gsap.to(fadeRef.value, { opacity: 0, duration: 0.25, overwrite: true });
   }
@@ -245,6 +315,7 @@ const fadeStyle = {
   <div
     ref="rootRef"
     class="relative w-full h-full overflow-hidden rounded-[24px]"
+    :class="props.className"
     :style="{
       '--r': `${props.radius}px`,
       '--x': '50%',
@@ -257,8 +328,8 @@ const fadeStyle = {
       class="columns-1 sm:columns-2 lg:columns-3 gap-0 [column-fill:_balance] [line-height:0]"
     >
       <article
-        v-for="(c, i) in data"
-        :key="i"
+        v-for="(c, i) in visibleCards"
+        :key="c._key"
         class="group relative mb-0 inline-block w-full break-inside-avoid rounded-[20px] overflow-hidden border border-[#333] hover:border-[var(--card-border)] transition-all duration-300"
         :style="{
           '--mouse-x': '50%',
@@ -268,6 +339,7 @@ const fadeStyle = {
           background: c.gradient,
         }"
         @mousemove="handleCardMove"
+        @click="handleCardClick(c.url)"
       >
         <div
           class="absolute inset-0 pointer-events-none transition-opacity duration-500 z-20 opacity-0 group-hover:opacity-100"
@@ -280,11 +352,36 @@ const fadeStyle = {
         <div
           class="relative z-10 p-[10px] box-border bg-transparent transition-colors duration-300"
         >
+          <!-- Skeleton while pending -->
+          <div
+            v-if="props.showSkeleton && getLoadState(c._key) === 'pending'"
+            class="w-full aspect-[4/3] rounded-[10px] bg-base-200/50 animate-pulse"
+          />
+
+          <!-- Optional fallback if hideOnError=false -->
+          <div
+            v-if="!props.hideOnError && getLoadState(c._key) === 'error'"
+            class="w-full aspect-[4/3] rounded-[10px] bg-base-200/40 grid place-items-center text-xs text-base-content/60"
+          >
+            Image failed
+          </div>
+
           <img
+            v-if="getLoadState(c._key) !== 'error' || props.hideOnError"
             :src="c.image"
             :alt="c.alt"
             loading="lazy"
             class="w-full h-auto object-cover rounded-[10px] block"
+            :style="{
+              opacity: !props.fadeInOnLoad || isLoaded(c._key) ? 1 : 0,
+              transition: 'opacity 250ms ease',
+              display:
+                props.showSkeleton && getLoadState(c._key) === 'pending'
+                  ? 'none'
+                  : 'block',
+            }"
+            @load="onImgLoad(c._key)"
+            @error="onImgError(c._key, c.image)"
           />
         </div>
       </article>

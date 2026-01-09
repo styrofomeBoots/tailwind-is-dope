@@ -24,6 +24,7 @@ const showFontOptions = computed<boolean>(() => route.name === "rem-vs-px");
 const navItems: NavItem[] = [
   { label: "Home", to: "/", icon: "mdi:home-outline", exact: true },
   { label: "Rem vs Px", to: "/rem-vs-px", icon: "mdi:ruler-square-compass" },
+  { label: "Cut the BS", to: "/cut-the-bs", icon: "la:poop" },
   { label: "Theming", to: "/theming", icon: "mdi:paint-outline" },
   { label: "About", to: "/about", icon: "mingcute:dog-line" },
 ];
