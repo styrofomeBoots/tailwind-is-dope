@@ -182,8 +182,9 @@ const data = computed(() => (props.items.length ? props.items : demo));
 /**
  * Track image load state per card.
  * IMPORTANT:
- * - you cannot v-if the tile before load or it will never attempt to load.
- * - so we render it, then remove if error OR fade in when loaded.
+ * - do NOT hide the <img> with display:none while pending + lazy loading,
+ *   or the request may never start and you'll stay in "pending" forever.
+ * - instead, render the <img> and overlay a skeleton until it loads.
  */
 type LoadState = "pending" | "loaded" | "error";
 const loadStateByKey = shallowRef<Record<string, LoadState>>({});
@@ -243,7 +244,7 @@ onMounted(() => {
   setY.value?.(pos.y);
 });
 
-const moveTo = (x: number, y: number) => {
+const moveTo = (x: number, y: number): void => {
   gsap.to(pos, {
     x,
     y,
@@ -257,7 +258,7 @@ const moveTo = (x: number, y: number) => {
   });
 };
 
-const handleMove = (e: PointerEvent) => {
+const handleMove = (e: PointerEvent): void => {
   const r = rootRef.value?.getBoundingClientRect();
   if (!r) return;
 
@@ -268,7 +269,7 @@ const handleMove = (e: PointerEvent) => {
   }
 };
 
-const handleLeave = () => {
+const handleLeave = (): void => {
   if (fadeRef.value) {
     gsap.to(fadeRef.value, {
       opacity: 1,
@@ -278,11 +279,11 @@ const handleLeave = () => {
   }
 };
 
-const handleCardClick = (url?: string) => {
+const handleCardClick = (url?: string): void => {
   if (url) window.open(url, "_blank", "noopener,noreferrer");
 };
 
-const handleCardMove = (e: MouseEvent) => {
+const handleCardMove = (e: MouseEvent): void => {
   const c = e.currentTarget as HTMLElement;
   const rect = c.getBoundingClientRect();
   const x = e.clientX - rect.left;
@@ -291,7 +292,7 @@ const handleCardMove = (e: MouseEvent) => {
   c.style.setProperty("--mouse-y", `${y}px`);
 };
 
-const spotlightStyle = {
+const spotlightStyle: Record<string, string> = {
   backdropFilter: "grayscale(1) brightness(0.78)",
   WebkitBackdropFilter: "grayscale(1) brightness(0.78)",
   background: "rgba(0,0,0,0.001)",
@@ -301,7 +302,7 @@ const spotlightStyle = {
     "radial-gradient(circle var(--r) at var(--x) var(--y),transparent 0%,transparent 15%,rgba(0,0,0,0.10) 30%,rgba(0,0,0,0.22)45%,rgba(0,0,0,0.35)60%,rgba(0,0,0,0.50)75%,rgba(0,0,0,0.68)88%,white 100%)",
 };
 
-const fadeStyle = {
+const fadeStyle: Record<string, string | number> = {
   ...spotlightStyle,
   maskImage:
     "radial-gradient(circle var(--r) at var(--x) var(--y),white 0%,white 15%,rgba(255,255,255,0.90)30%,rgba(255,255,255,0.78)45%,rgba(255,255,255,0.65)60%,rgba(255,255,255,0.50)75%,rgba(255,255,255,0.32)88%,transparent 100%)",
@@ -352,37 +353,35 @@ const fadeStyle = {
         <div
           class="relative z-10 p-[10px] box-border bg-transparent transition-colors duration-300"
         >
-          <!-- Skeleton while pending -->
-          <div
-            v-if="props.showSkeleton && getLoadState(c._key) === 'pending'"
-            class="w-full aspect-[4/3] rounded-[10px] bg-base-200/50 animate-pulse"
-          />
+          <div class="relative">
+            <!-- Skeleton overlay while pending -->
+            <div
+              v-if="props.showSkeleton && getLoadState(c._key) === 'pending'"
+              class="absolute inset-0 rounded-[10px] bg-base-200/50 animate-pulse z-10"
+            />
 
-          <!-- Optional fallback if hideOnError=false -->
-          <div
-            v-if="!props.hideOnError && getLoadState(c._key) === 'error'"
-            class="w-full aspect-[4/3] rounded-[10px] bg-base-200/40 grid place-items-center text-xs text-base-content/60"
-          >
-            Image failed
+            <!-- Optional fallback if hideOnError=false -->
+            <div
+              v-if="!props.hideOnError && getLoadState(c._key) === 'error'"
+              class="w-full aspect-[4/3] rounded-[10px] bg-base-200/40 grid place-items-center text-xs text-base-content/60"
+            >
+              Image failed
+            </div>
+
+            <img
+              v-if="getLoadState(c._key) !== 'error' || !props.hideOnError"
+              :src="c.image"
+              :alt="c.alt"
+              loading="lazy"
+              class="w-full h-auto object-cover rounded-[10px] block"
+              :style="{
+                opacity: !props.fadeInOnLoad || isLoaded(c._key) ? 1 : 0,
+                transition: 'opacity 250ms ease',
+              }"
+              @load="onImgLoad(c._key)"
+              @error="onImgError(c._key, c.image)"
+            />
           </div>
-
-          <img
-            v-if="getLoadState(c._key) !== 'error' || props.hideOnError"
-            :src="c.image"
-            :alt="c.alt"
-            loading="lazy"
-            class="w-full h-auto object-cover rounded-[10px] block"
-            :style="{
-              opacity: !props.fadeInOnLoad || isLoaded(c._key) ? 1 : 0,
-              transition: 'opacity 250ms ease',
-              display:
-                props.showSkeleton && getLoadState(c._key) === 'pending'
-                  ? 'none'
-                  : 'block',
-            }"
-            @load="onImgLoad(c._key)"
-            @error="onImgError(c._key, c.image)"
-          />
         </div>
       </article>
     </div>
