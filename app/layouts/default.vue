@@ -24,7 +24,8 @@ const showFontOptions = computed<boolean>(() => route.name === "rem-vs-px");
 const navItems: NavItem[] = [
   { label: "Home", to: "/", icon: "mdi:home-outline", exact: true },
   { label: "Rem vs Px", to: "/rem-vs-px", icon: "mdi:ruler-square-compass" },
-  { label: "Scroll", to: "/scroll", icon: "mdi:scroll" },
+  { label: "Theming", to: "/theming", icon: "mdi:paint-outline" },
+  { label: "About", to: "/about", icon: "mingcute:dog-line" },
 ];
 </script>
 
@@ -43,7 +44,7 @@ const navItems: NavItem[] = [
             aria-label="open sidebar"
             class="btn btn-square btn-ghost"
           >
-            <Icon icon="mdi:menu" class="size-6" />
+            <Icon icon="lucide-lab:burger" class="size-6" />
           </label>
         </div>
 
@@ -67,8 +68,8 @@ const navItems: NavItem[] = [
               class="theme-controller"
               value="cmyk"
             />
-            <Icon class="swap-on size-8 fill-current" icon="heroicons:sun" />
-            <Icon class="swap-off size-8 fill-current" icon="heroicons:moon" />
+            <Icon class="swap-on size-6 fill-current" icon="heroicons:sun" />
+            <Icon class="swap-off size-6 fill-current" icon="heroicons:moon" />
           </label>
         </div>
       </div>
