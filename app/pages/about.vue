@@ -78,10 +78,12 @@ import { Icon } from "@iconify/vue";
           class="card border border-base-300 bg-base-100 shadow-sm overflow-hidden transition hover:-translate-y-0.5 hover:shadow-md"
         >
           <div class="relative">
-            <img src="/images/rita/seth-and-rita.png" alt="Seth, and Rita"
-            loading="lazy" class="w-full block object-cover h-[26rem]
-            sm:h-[28rem] md:h-[40rem] lg:h-[20rem] [object-position:50%_12%]
-            lg:object-top"" />
+            <img
+              src="/images/rita/seth-and-rita.png"
+              alt="Seth, and Rita"
+              loading="lazy"
+              class="w-full block object-cover h-[26rem] sm:h-[28rem] md:h-[40rem] lg:h-[20rem] [object-position:50%_12%] lg:object-top"
+            />
           </div>
         </div>
       </template>
