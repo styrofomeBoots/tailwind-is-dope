@@ -224,7 +224,7 @@ onBeforeUnmount((): void => {
               <div class="p-5 space-y-3">
                 <div class="flex items-start gap-4">
                   <div
-                    class="grid min-h-12 place-items-center rounded-2xl bg-success text-success-content font-bold ring-1 ring-base-300/60"
+                    class="grid min-h-12 min-w-12 place-items-center rounded-2xl bg-success text-success-content font-bold ring-1 ring-base-300/60"
                   >
                     REM
                   </div>
