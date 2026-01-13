@@ -220,6 +220,8 @@ const themeGroups: ThemeGroup[] = [
   },
 ];
 
+const showScrollHint = ref<boolean>(true);
+
 onMounted((): void => {
   const el = trackEl.value;
   if (!el) return;
@@ -227,6 +229,7 @@ onMounted((): void => {
   const tick = (): void => {
     const p = getScrollProgress(el);
     activeTheme.value = themeFromProgress(p);
+    showScrollHint.value = p < 0.03;
   };
 
   onScroll = (): void => tick();
@@ -248,14 +251,14 @@ onBeforeUnmount((): void => {
   <div class="max-w-6xl space-y-8 mx-auto">
     <section ref="trackEl" class="relative h-[500vh]">
       <div
-        class="sticky top-[calc(50vh-12rem)] mx-auto grid w-[calc(100%-2rem)] max-w-[85rem] rounded-2xl sm:top-20"
+        class="sticky top-16 mx-auto grid w-[calc(100%-2rem)] max-w-[85rem] rounded-2xl sm:top-20"
       >
         <div
           class="col-start-1 row-start-1 flex items-start rounded-2xl"
           :data-theme="activeTheme"
         >
           <div
-            class="border-base-200 flex w-full flex-wrap items-stretch justify-center gap-6 rounded-2xl border p-6 xl:flex-nowrap xl:justify-normal xl:h-[40rem]"
+            class="border-base-200 flex w-full flex-wrap items-stretch justify-center gap-6 rounded-2xl border p-6 xl:flex-nowrap xl:justify-normal xl:h-[40rem] 2xl:h-[44rem]"
           >
             <!-- LEFT COLUMN (only at 2xl+) -->
             <div class="hidden flex-col gap-6 2xl:flex">
@@ -625,6 +628,17 @@ onBeforeUnmount((): void => {
             </div>
             <!-- /RIGHT -->
           </div>
+        </div>
+      </div>
+      <div
+        v-if="showScrollHint"
+        class="pointer-events-none sticky bottom-4 z-10 flex justify-center"
+        aria-hidden="true"
+      >
+        <div
+          class="rounded-full bg-base-200/80 px-3 py-2 text-xs font-semibold"
+        >
+          Scroll <span class="inline-block animate-bounce">↓</span>
         </div>
       </div>
     </section>

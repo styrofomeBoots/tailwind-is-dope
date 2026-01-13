@@ -4,7 +4,7 @@
 }
 
 @plugin "daisyui/theme" {
-  name: "cmyk";
+  name: "garden";
   default: false;
   prefersdark: false;
   color-scheme: "light";

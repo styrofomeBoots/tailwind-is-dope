@@ -11,10 +11,10 @@ type NavItem = {
 
 const route = useRoute();
 const showFontOptions = computed<boolean>(() => route.name === "size-tokens");
+let drawerMql: MediaQueryList | null = null;
 
 const { fontOptions, activeFont, setRootFont } = useRootFontSize();
 
-// IMPORTANT: use <details> open state instead of DaisyUI's `dropdown-open` class
 const dropdownRef = ref<HTMLDetailsElement | null>(null);
 
 const closeFontMenu = (): void => {
@@ -100,13 +100,30 @@ const onDocKeyDown = (e: KeyboardEvent): void => {
   if (e.key === "Escape") closeFontMenu();
 };
 
-onMounted((): void => {
+const closeDrawer = (): void => {
   if (!import.meta.client) return;
+  const el = document.getElementById("app-drawer") as HTMLInputElement | null;
+  if (el) el.checked = false;
+};
+
+const onDrawerBreakpointChange = (e: MediaQueryListEvent): void => {
+  if (!e.matches) closeDrawer();
+};
+
+onMounted((): void => {
+  drawerMql = globalThis.matchMedia("(min-width: 1024px)");
+  if (!drawerMql.matches) closeDrawer();
+  if (!import.meta.client) return;
+  drawerMql.addEventListener("change", onDrawerBreakpointChange);
   document.addEventListener("pointerdown", onDocPointerDownCapture, true);
   document.addEventListener("keydown", onDocKeyDown);
 });
 
 onBeforeUnmount((): void => {
+  if (drawerMql) {
+    drawerMql.removeEventListener("change", onDrawerBreakpointChange);
+    drawerMql = null;
+  }
   if (!import.meta.client) return;
   document.removeEventListener("pointerdown", onDocPointerDownCapture, true);
   document.removeEventListener("keydown", onDocKeyDown);
@@ -205,7 +222,7 @@ const closeDrawerIfToggleable = (): void => {
               id="theme-controller"
               type="checkbox"
               class="theme-controller"
-              value="cmyk"
+              value="garden"
             />
             <Icon class="swap-on size-6 fill-current" icon="heroicons:sun" />
             <Icon class="swap-off size-6 fill-current" icon="heroicons:moon" />
@@ -225,18 +242,25 @@ const closeDrawerIfToggleable = (): void => {
         class="drawer-overlay"
       />
 
-      <aside class="min-h-full w-52 bg-base-200">
-        <div class="tooltip tooltip-bottom m-4 tooltip-info">
+      <aside class="min-h-full w-52 bg-base-200 pt-4">
+        <div class="tooltip tooltip-bottom tooltip-info hidden lg:flex">
           <div class="tooltip-content">
             <div class="flex items-center gap-2">
               <Icon icon="logos:daisyui-icon" class="size-6" />
               <span>DaisyUI too!</span>
             </div>
           </div>
-          <div class="flex items-center gap-2">
+
+          <div class="flex items-center gap-2 mx-auto">
             <Icon icon="devicon:tailwindcss" class="size-8" />
             <span class="text-lg font-bold">tailwindIsDope</span>
           </div>
+        </div>
+
+        <!-- Mobile: no tooltip, just the header -->
+        <div class="mx-4 flex items-center gap-2 lg:hidden">
+          <Icon icon="devicon:tailwindcss" class="size-8" />
+          <span class="text-lg font-bold">tailwindIsDope</span>
         </div>
 
         <ul class="menu px-2 gap-1 w-full">

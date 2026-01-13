@@ -24,21 +24,20 @@ import { Icon } from "@iconify/vue";
                 class="space-y-3 max-w-prose text-base leading-relaxed text-base-content/80"
               >
                 <p>
-                  I'm Seth. I bought fireworks in Pennsylvania and brought them
-                  across state lines. They’re hidden in my attic as I count down
-                  the days to my imminent arrest.
+                  Seth. My dog is built on efficiency, a fifty-pound bag of food
+                  lasts about 400 days. I stopped believing in favorite colors
+                  in January 2021, but it was purple.
                 </p>
-
-                <p>
-                  My dog is built on efficiency, a fifty-pound bag of food lasts
-                  about 400 days. I stopped believing in favorite colors in
-                  January 2021, but it was purple.
-                </p>
-
                 <p>
                   Not a fan of anime but I like Chainsaw Man. I think smoking
                   cigarettes looks cool and I would probably do it if they
                   didn’t make me sick.
+                </p>
+
+                <p>
+                  I bought fireworks in Pennsylvania and brought them across
+                  state lines. They are hidden in my attic as I count down the
+                  days to my impending arrest.
                 </p>
 
                 <p>Enjoy the Rita pics.</p>
@@ -48,11 +47,6 @@ import { Icon } from "@iconify/vue";
 
           <!-- Badges -->
           <div class="flex flex-wrap gap-2">
-            <div class="badge badge-primary badge-outline gap-2 py-3">
-              <Icon icon="streamline:fireworks-rocket" class="size-4" />
-              crime
-            </div>
-
             <div class="badge badge-secondary badge-outline gap-2 py-3">
               <Icon icon="solar:paw-outline" class="size-4" />
               efficient canine
@@ -69,6 +63,10 @@ import { Icon } from "@iconify/vue";
               <Icon icon="ph:cigarette-light" class="size-4" />
               unfortunate
             </div>
+            <div class="badge badge-primary badge-outline gap-2 py-3">
+              <Icon icon="streamline:fireworks-rocket" class="size-4" />
+              crime
+            </div>
           </div>
         </div>
       </template>
@@ -79,7 +77,7 @@ import { Icon } from "@iconify/vue";
         >
           <div class="relative">
             <img
-              src="/images/rita/seth-and-rita.png"
+              src="/images/rita/silhouette.png"
               alt="Seth, and Rita"
               loading="lazy"
               class="w-full block object-cover h-[26rem] sm:h-[28rem] md:h-[40rem] lg:h-[20rem] [object-position:50%_12%] lg:object-top"

@@ -224,7 +224,7 @@ onBeforeUnmount((): void => {
               <div class="p-5 space-y-3">
                 <div class="flex items-start gap-4">
                   <div
-                    class="grid size-12 place-items-center rounded-2xl bg-success text-success-content font-bold ring-1 ring-base-300/60"
+                    class="grid min-h-12 place-items-center rounded-2xl bg-success text-success-content font-bold ring-1 ring-base-300/60"
                   >
                     REM
                   </div>
@@ -295,7 +295,7 @@ onBeforeUnmount((): void => {
                 </div>
 
                 <div
-                  class="flex items-center justify-between rounded-xl bg-base-200/70 px-4 h-16 ring-1 ring-base-300/60 border border-success/25"
+                  class="flex items-center justify-between rounded-xl bg-base-200/70 px-4 h-16 ring-1 border border-base-300"
                 >
                   <div class="min-w-0">
                     <div class="font-semibold truncate">
@@ -326,7 +326,7 @@ onBeforeUnmount((): void => {
                 </div>
 
                 <div
-                  class="flex items-center justify-between rounded-xl bg-base-200/70 px-4 h-[56px] ring-1 ring-base-300/60 border border-secondary/25"
+                  class="flex items-center justify-between rounded-xl bg-base-200/70 px-4 h-[56px] ring-1 border border-base-300"
                 >
                   <div class="min-w-0">
                     <div class="font-semibold truncate">
