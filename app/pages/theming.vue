@@ -428,7 +428,9 @@ onBeforeUnmount((): void => {
                 <div class="flex flex-wrap items-center justify-center gap-3">
                   <a
                     class="btn btn-wide btn-primary no-grow"
-                    href="#"
+                    href="https://daisyui.com/theme-generator/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     tabindex="0"
                   >
                     See all themes
